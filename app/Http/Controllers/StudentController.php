@@ -13,8 +13,8 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         if($request->has('search')){
-            $students = Student::searchByQuery(array('match' => array('first_name' => $request->input('search'))))->toArray();
-            //$students= Student::search($request->input('search'))->toArray();
+            $students = Student::searchByQuery(array('wildcard' => array('first_name' => "*".$request->input('search')."*")))->toArray();
+            // $students= Student::search($request->input('search'))->toArray();
             return view('student-search',compact('students'));
         }
         return view('student-search');
